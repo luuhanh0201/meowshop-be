@@ -7,9 +7,29 @@ const productSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    categoryId: {
+        type: String,
+        required: false
+    },
+    images: {
+        type: [String],
+        required: true,
+    },
     price: {
         type: Number,
-        required: true,
+        required: true
+    },
+    discount: {
+        type: Number,
+        required: false
+    },
+    quantify: {
+        type: Number,
+        required: true
+    },
+    description: {
+        type: String,
+        required: false
     }
 }, { version: true, timestamps: true })
 export default mongoose.model("Product", productSchema)

@@ -3,11 +3,12 @@ import { create, getAll, getOne,remove,update } from "../controllers/products";
 
 const routerProducts = Router()
 
-routerProducts.get("/getall",getAll)
-routerProducts.get("/detail/:id",getOne)
-routerProducts.post("/create",create)
-routerProducts.delete("/remove/:id",remove)
-routerProducts.put("/update/:id",update)
+routerProducts.get("/",getAll)
+routerProducts.get("/:id",getOne)
+routerProducts.post("/",create)
+routerProducts.delete("/:id",remove)
+routerProducts.put("/:id",update)
+
 
 export default routerProducts
 
