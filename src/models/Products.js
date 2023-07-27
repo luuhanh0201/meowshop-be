@@ -23,6 +23,10 @@ const productSchema = mongoose.Schema({
         type: Number,
         required: false
     },
+    brand: {
+        type: String,
+        required: false
+    },
     quantify: {
         type: Number,
         required: true
@@ -32,4 +36,4 @@ const productSchema = mongoose.Schema({
         required: false
     }
 }, { version: true, timestamps: true })
-export default mongoose.model("Product", productSchema)
+export default mongoose.model("Products", productSchema)

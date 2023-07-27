@@ -1,4 +1,4 @@
-import productSchema from "../models/Product"
+import productSchema from "../models/Products"
 
 
 

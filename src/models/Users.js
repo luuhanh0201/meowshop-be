@@ -14,12 +14,14 @@ const userSchema = new mongoose.Schema({
         type: String, 
         required: true
     },
-    // confirmPassword: {
-    //     type: String, 
-    //     required: true
-    // }
+    role :{
+        type: String,
+        default: "member",
+        required: false
+    }
+ 
 }, {
     timestamps: true, versionKey: false
 })
 
-export default mongoose.model('User', userSchema)
+export default mongoose.model('Users', userSchema)

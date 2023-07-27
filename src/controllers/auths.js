@@ -1,4 +1,4 @@
-import User from "../models/User"
+import User from "../models/Users"
 import { signInValid, signUpValid } from "../validations/user"
 import bcryptjs from "bcryptjs"
 import jwt from "jsonwebtoken"
@@ -66,6 +66,7 @@ export const signIn = async (req, res) => {
         // B2: Kiểm email có tồn tại trong database hay không?
 
         const user = await User.findOne({ email: req.body.email })
+        console.log(user)
         if (!user) {
             return res.status(404).json({
                 message: "Email này chưa được đăng ký, bạn có muốn tạo tài khoản không?"
@@ -81,7 +82,7 @@ export const signIn = async (req, res) => {
             })
         }
         // B4: Tạo jwt
-        const accessToken = jwt.sign({ _id: user.id }, SECRET_KEY)
+        const accessToken = jwt.sign({ _id: user._id }, SECRET_KEY,{expiresIn: "1d"})
         // B5: Response thông tin đăng nhập.
             
         return res.status(200).json({
@@ -98,3 +99,21 @@ export const signIn = async (req, res) => {
         })
     }
 }
+// export const getAll = async (req, res) => {
+//     try {
+//         const data = await userSchema.find({})
+//         if (!data) {
+//             return res.status(404).json({
+//                 message: "category not found",
+//             })
+//         }
+//         return res.status(200).json({
+//             message: "Get category successfully",
+//             data: data
+//         })
+//     } catch (error) {
+//         return res.status(404).json({
+//             message: error.message,
+//         })
+//     }
+// }
