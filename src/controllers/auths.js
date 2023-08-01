@@ -14,16 +14,16 @@ export const signUp = async (req, res) => {
         if (error) {
             const errors = error.details.map(err => err.message)
             return res.status(400).json({
-                messages: errors
+                messages: "Joi: "+  errors
             })
         }
 
         // Bước 2: Kiểm tra email đã tồn tại trong hệ thống hay chưa?
-        const userExists = await User.findOne({ email: req.body.email })
-        console.log(userExists)
+        const checkUserName = await User.findOne({ userName: req.body.userName })
+    
         if (userExists) {
             return res.status(400).json({
-                message: "Email này đã được đăng ký, bạn có muốn đăng nhập không?"
+                message: "userName này đã được đăng ký, bạn có muốn đăng nhập không?"
             })
         }
 
@@ -34,7 +34,11 @@ export const signUp = async (req, res) => {
         const user = await User.create({
             userName: req.body.userName,
             email: req.body.email,
-            password: hashPassword
+            password: hashPassword,
+            fullName: req.body.fullName,
+            avatar: req.body.avatar,
+            numberPhone: req.body.numberPhone,
+            address: req.body.address
         })
 
 
@@ -47,7 +51,7 @@ export const signUp = async (req, res) => {
     } catch (error) {
         return res.status(500).json({
             name: error.name,
-            message: error.message
+            message: "catch: "+ error.message
         })
     }
 }
@@ -65,17 +69,15 @@ export const signIn = async (req, res) => {
 
         // B2: Kiểm email có tồn tại trong database hay không?
 
-        const user = await User.findOne({ email: req.body.email })
-        console.log(user)
+        const user = await User.findOne({ userName: req.body.userName })
         if (!user) {
             return res.status(404).json({
-                message: "Email này chưa được đăng ký, bạn có muốn tạo tài khoản không?"
+                message: "UserName này chưa được đăng ký, bạn có muốn tạo tài khoản không?"
             })
         }
 
         // B3: So sánh password có đúng không?
         const isMatch = await bcryptjs.compare(req.body.password, user.password)
-        console.log(isMatch)
         if (!isMatch) {
             return res.status(400).json({
                 message: "Mật khẩu không đúng, vui lòng nhập lại!"
@@ -84,7 +86,7 @@ export const signIn = async (req, res) => {
         // B4: Tạo jwt
         const accessToken = jwt.sign({ _id: user._id }, SECRET_KEY,{expiresIn: "1d"})
         // B5: Response thông tin đăng nhập.
-            
+            user.password = "Có cái nịt"
         return res.status(200).json({
             message: "Đăng nhập thành công",
             user,
@@ -99,21 +101,3 @@ export const signIn = async (req, res) => {
         })
     }
 }
-// export const getAll = async (req, res) => {
-//     try {
-//         const data = await userSchema.find({})
-//         if (!data) {
-//             return res.status(404).json({
-//                 message: "category not found",
-//             })
-//         }
-//         return res.status(200).json({
-//             message: "Get category successfully",
-//             data: data
-//         })
-//     } catch (error) {
-//         return res.status(404).json({
-//             message: error.message,
-//         })
-//     }
-// }

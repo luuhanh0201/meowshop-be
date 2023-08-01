@@ -5,10 +5,14 @@ export const signUpValid = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().required().min(6).max(255),
     confirmPassword: Joi.valid(Joi.ref('password')).required(),
-    rule: Joi.string()
+    fullName: Joi.string(),
+    avatar: Joi.string(),
+    numberPhone: Joi.string().min(9).max(11),
+    address: Joi.string(),
+    role: Joi.string()
 })
 
 export const signInValid = Joi.object({
-    email: Joi.string().email().required(),
+    userName:Joi.string().required(),
     password: Joi.string().required().min(6).max(255)
 })
