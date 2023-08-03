@@ -1,8 +1,9 @@
 import productSchema from "../models/Products"
-
+import Product from "../models/Products"
 
 
 export const getAll = async (req, res) => {
+
     try {
         const data = await productSchema.find({})
         if (!data) {
@@ -79,7 +80,7 @@ export const remove = async (req, res) => {
 
 export const update = async (req, res) => {
     try {
-        const data = await productSchema.findByIdAndUpdate(req.params.id,req.body,{new:true})
+        const data = await productSchema.findByIdAndUpdate(req.params.id, req.body, { new: true })
         if (!data) {
             return res.status(404).json({
                 message: "Product not found",

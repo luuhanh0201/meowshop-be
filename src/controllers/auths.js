@@ -21,7 +21,7 @@ export const signUp = async (req, res) => {
         // Bước 2: Kiểm tra email đã tồn tại trong hệ thống hay chưa?
         const checkUserName = await User.findOne({ userName: req.body.userName })
     
-        if (userExists) {
+        if (checkUserName) {
             return res.status(400).json({
                 message: "userName này đã được đăng ký, bạn có muốn đăng nhập không?"
             })
@@ -86,7 +86,7 @@ export const signIn = async (req, res) => {
         // B4: Tạo jwt
         const accessToken = jwt.sign({ _id: user._id }, SECRET_KEY,{expiresIn: "1d"})
         // B5: Response thông tin đăng nhập.
-            user.password = "Có cái nịt"
+            user.password = undefined
         return res.status(200).json({
             message: "Đăng nhập thành công",
             user,
