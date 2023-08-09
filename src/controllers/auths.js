@@ -26,7 +26,6 @@ export const signUp = async (req, res) => {
                 message: "userName này đã được đăng ký, bạn có muốn đăng nhập không?"
             })
         }
-
         // Bước 3: Mã hoá mật khẩu
         const hashPassword = await bcryptjs.hash(req.body.password, 10)
 
