@@ -7,7 +7,7 @@ const { SECRET_KEY } = process.env;
 export const checkPermission = async (req, res, next) => {
   try {
     // Bước 1: Kiểm tra xem đã đăng nhập hay chưa?
-    const token = req.headers.authorization.split(" ")[1];
+    const token = req.headers.authorization?.split(" ")[1];
     if (!token) {
       return res.status(403).json({
         message: "Bạn chưa đăng nhập!",
