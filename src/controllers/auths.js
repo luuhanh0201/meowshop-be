@@ -163,3 +163,22 @@ export const updateUser = async (req, res) => {
         })
     }
 }
+
+export const getOne = async (req, res) => {
+    try {
+        const data = await Users.findById(req.params.id)
+        if (!data) {
+            return res.status(404).json({
+                message: "user not found",
+            })
+        }
+        return res.status(200).json({
+            message: "get one user",
+            data: data
+        })
+    } catch (error) {
+        return res.status(404).json({
+            message: error.message,
+        })
+    }
+}
