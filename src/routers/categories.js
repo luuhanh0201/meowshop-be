@@ -10,3 +10,4 @@ routerCategory.delete("/remove/:id", remove)
 routerCategory.put("/update/:id", update)
 
 export default routerCategory
+
