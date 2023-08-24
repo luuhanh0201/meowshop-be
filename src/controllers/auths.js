@@ -185,7 +185,7 @@ export const getOne = async (req, res) => {
 
 export const remove = async (req, res) => {
     try {
-        const data = await Users.findByIdAndRemove(req.params.id)
+        const data = await Users.findByIdAndDelete(req.params.id)
         if (!data) {
             return res.status(404).json({
                 message: "user not found",
