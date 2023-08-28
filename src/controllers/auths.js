@@ -114,7 +114,7 @@ export const getUser = async (req, res) => {
         }
         const showUser = data.map(user => {
             return {
-                id: user._id,
+                _id: user._id,
                 userName: user.userName,
                 fullName: user.fullName,
                 email: user.email,
